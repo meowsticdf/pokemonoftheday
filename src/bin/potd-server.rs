@@ -6,11 +6,12 @@ use std::net::TcpListener;
 
 
 fn main() -> io::Result<()> {
-    let entry_path = env::args().nth(1).expect("Usage: potd-server <file>");
+    let host = env::args().nth(1).expect("Usage: potd-server <host> <file>");
+    let entry_path = env::args().nth(2).expect("Usage: potd-server <host> <file>");
 
-    let listener = TcpListener::bind("0.0.0.0:17")
+    let listener = TcpListener::bind(format!("{}:17", host))
         .expect("Socket listening failed");
-    println!("Listening on 0.0.0.0 port 17...");
+    println!("Listening on {} port 17...", host);
     for stream in listener.incoming() {
         match stream {
             Ok(mut stream) => {
