@@ -40,6 +40,7 @@ fn main() {
             SELECT species_id, version_id, flavor_text
             FROM pokemon_species_flavor_text
             WHERE language_id=9
+            AND flavor_text!=''
             ORDER BY random()
             limit 1
         ) AS ft
