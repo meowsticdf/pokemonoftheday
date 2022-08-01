@@ -5,7 +5,7 @@ use std::env;
 use std::fs;
 
 use diesel::prelude::*;
-use diesel::pg::PgConnection;
+use diesel::sqlite::SqliteConnection;
 use diesel::sql_query;
 use diesel::sql_types::Text;
 
@@ -26,7 +26,7 @@ fn main() {
     let database_url = env::args().nth(1).expect(usage);
     let output_file  = env::args().nth(2).expect(usage);
 
-    let connection = PgConnection::establish(&database_url)
+    let connection = SqliteConnection::establish(&database_url)
         .expect(&format!("Error connecting to {}", database_url));
 
     let result = sql_query("
